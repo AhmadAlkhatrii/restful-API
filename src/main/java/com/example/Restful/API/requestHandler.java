@@ -168,9 +168,8 @@ public class requestHandler {
 	}
 	
 	
-	@GetMapping(value = "/recommondedfilms/{username}") // WORKING !!!
-	public ArrayList<film> getRecommondedFilms(@PathVariable("username") String username) {
-    	
+	@GetMapping(value = "/recommondedfilms/{username}/{len}") // WORKING !!!
+	public ArrayList<film> getRecommondedFilms(@PathVariable("username") String username,@PathVariable("len") int len) {
     	
 		System.out.println("Entering get recommonded films API ");
 		getFilmsDao Dao = new getFilmsDao();
@@ -178,15 +177,19 @@ public class requestHandler {
 		ResultSet rs = Dao.getRecommondedFilms_user(username);
 		ArrayList<film> films= new ArrayList<film>();
 	
-	try {
+	try {// before next the rowID is 0 
 		System.out.println("Start filling the ArrayList ");
-		
+		 
 		while(rs.next()) {
-			
+			  
 		film f = new film(rs.getString("title"),rs.getInt("FID"),
 				rs.getString("dirName"),rs.getString("genre"),
 				rs.getString("year"),
 				null,null,null,rs.getDouble("rates"));
+		if(rs.getRow()==len)break;
+		
+		System.out.println("the row number is "+rs.getRow());
+		
 		 
 		films.add(f);
 		}
@@ -203,6 +206,32 @@ public class requestHandler {
 		System.out.println("Return film Object");
 		return films;
 		 
+	}
+	@GetMapping(value = "/recommondedfilm/{username}/{num}") // WORKING !!!
+	public film getRecommondedFilm(@PathVariable("username") String username,@PathVariable("num") int num) throws SQLException {
+    	
+		System.out.println("Entering get recommonded films API for "+username );
+		getFilmsDao Dao = new getFilmsDao();
+
+		ResultSet rs = Dao.getRecommondedFilms_user(username);
+	
+		System.out.println("getting a single film with rowID "+num);
+		
+		film film =null;
+		while(rs.next())
+			if(rs.getRow() == num) {
+				film = new film(rs.getString("title"),rs.getInt("FID"),
+				rs.getString("dirName"),rs.getString("genre"),
+				rs.getString("year"),
+				null,null,null,rs.getDouble("rates"));
+				break;
+			}
+
+		System.out.println("the row number is "+rs.getRow());
+		System.out.println("Finished !!");
+		System.out.println("Response with film JSON file !!");
+		
+		return film;		 
 	}
 	
 }
