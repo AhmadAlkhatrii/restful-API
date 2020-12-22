@@ -95,7 +95,7 @@ public class requestHandler {
 		}
 
 	// FILM handler	
-	// (getAllFilms,getFilm)
+	// (getAllFilms,getFilm,recommondedFilms)
 	
 	@GetMapping(value = "/film/{id}")
 	public film getFilm(@PathVariable("id")  int id) {
@@ -127,7 +127,6 @@ public class requestHandler {
 		System.out.println("Return film Object");
 		return f;	 
 	}
-	
 	
 	
 	
