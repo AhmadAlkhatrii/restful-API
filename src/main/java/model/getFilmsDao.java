@@ -25,9 +25,7 @@ public class getFilmsDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url,DB_username,DB_password);
 			 
-			
-			
-			
+ 
 			PreparedStatement st= con.prepareStatement(sql);
 			st.setString(1, username);
 			
@@ -59,9 +57,7 @@ public class getFilmsDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url,DB_username,DB_password);
 			con.isValid(0);
-			
-			
-			
+		
 			PreparedStatement st= con.prepareStatement(sql);
 			//st.setString(1, username);
 			//st.setString(2, password);
@@ -97,8 +93,7 @@ public class getFilmsDao {
 		}
 		ResultSet temp = null;
 		return temp;
-		
-		
+ 	
 	}
 	
 	
@@ -108,10 +103,7 @@ public class getFilmsDao {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(url,DB_username,DB_password);
-			 
-			
-			
-			
+ 
 			PreparedStatement st= con.prepareStatement(sql);
 			//st.setString(1, username);
 			//st.setString(2, password);

@@ -234,4 +234,33 @@ public class requestHandler {
 		return film;		 
 	}
 	
+	 
+	
+	@GetMapping(value = "/recommondedfilmsinfo/{username}/{keyword}") // WORKING !!!
+	public msgRes getRecommondedFilm(@PathVariable("username") String username,@PathVariable("keyword") String keyword) throws SQLException {
+		
+		if(keyword.matches("size") ) {
+		System.out.println("Entering feature of recommonded films API for "+username+"using keyword"+ keyword );
+		getFilmsDao Dao = new getFilmsDao();
+		ResultSet rs = Dao.getRecommondedFilms_user(username);
+		;
+		int size = 0;
+		
+		while(rs.next())
+			size++;
+		System.out.println("the totall number of rows is  "+size);
+		
+		
+		System.out.println("Finished !!");
+		System.out.println("Response with film JSON file !!");
+		
+		
+		return new msgRes("OK", size+"");	}
+		else {
+		return new msgRes("FAIL", "no match of the keyword");
+			
+	}
+		
+	}
+	
 }
